@@ -33,12 +33,19 @@ endif()
 set(GFT_WITH_VULKAN ${WITH_VULKAN})
 set(GFT_WITH_GLSLANG ${WITH_GLSLANG})
 
+add_definitions(-DGFT_WITH_VULKAN=${WITH_VULKAN})
+add_definitions(-DGFT_WITH_GLSLANG=${WITH_GLSLANG})
+
 add_subdirectory(third/graphi-t)
 
+find_package(Vulkan REQUIRED)
+
 set(LINK_LIBS
+    ${Vulkan_LIBRARIES}
     GraphiT
 )
 set(INC_DIRS
+    ${Vulkan_INCLUDE_DIRS}
     "${PROJECT_SOURCE_DIR}/include"
     "${PROJECT_SOURCE_DIR}/third/graphi-t/include"
 )

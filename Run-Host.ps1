@@ -1,12 +1,23 @@
 param(
-    [string] $AppName
+    [string] $AppName,
+    [switch] $Verbose
 )
 
-if (-not(Test-Path "build-windows-x64")) {
-    New-Item "build-windows-x64" -ItemType Directory
+if (-not $AppName) {
+    $AppName = "GraphiT-Template"
 }
 
-Push-Location "build-windows-x64"
+$CmdArgs = ""
+
+if ($Verbose) {
+    $CmdArgs += "-v"
+}
+
+if (-not(Test-Path "build-host")) {
+    New-Item "build-host" -ItemType Directory
+}
+
+Push-Location "build-host"
 cmake ..
 cmake --build . -t $AppName
 Pop-Location
@@ -15,4 +26,4 @@ if ($lastexitcode -ne 0) {
     exit
 }
 
-& ./build-windows-x64/bin/Debug/GraphiT-Template.exe
+& ./build-host/bin/Debug/$AppName.exe $CmdArgs

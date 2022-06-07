@@ -5,13 +5,6 @@ set(PROJECT_NAME "GraphiT-Template")
 
 project (${PROJECT_NAME} LANGUAGES CXX)
 
-
-
-option(WITH_VULKAN "Build Graphi-T with Vulkan GPU backend" ON)
-option(WITH_GLSLANG "Build Graphi-T with glslang for runtime-shader compilation" ON)
-
-
-
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -29,12 +22,6 @@ if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type selected, default to Release")
     set(CMAKE_BUILD_TYPE "Release" CACHE PATH "Build Type" FORCE)
 endif()
-
-set(GFT_WITH_VULKAN ${WITH_VULKAN})
-set(GFT_WITH_GLSLANG ${WITH_GLSLANG})
-
-add_definitions(-DGFT_WITH_VULKAN=${WITH_VULKAN})
-add_definitions(-DGFT_WITH_GLSLANG=${WITH_GLSLANG})
 
 add_subdirectory(third/graphi-t)
 
